@@ -1,13 +1,14 @@
-FROM debian:stretch
+FROM debian:buster
 
+ENV DEBIAN_VERSION buster
 ENV DEBIAN_FRONTEND noninteractive
-ENV KERNEL_SOURCE_VERSION 4.9
+ENV KERNEL_SOURCE_VERSION 4.19
 
 WORKDIR /root
 
 RUN apt-get update && apt-get install -y debootstrap build-essential \
   fakeroot linux-source-$KERNEL_SOURCE_VERSION bc kmod cpio flex cpio libncurses5-dev libelf-dev libssl-dev && \
-  tar xvf /usr/src/linux-source-$KERNEL_SOURCE_VERSION.tar.*
+  tar xf /usr/src/linux-source-$KERNEL_SOURCE_VERSION.tar.*
 
 ADD config/kernel-config /root/linux-source-$KERNEL_SOURCE_VERSION/.config
 
